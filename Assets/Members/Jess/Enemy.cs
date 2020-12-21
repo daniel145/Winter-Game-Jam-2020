@@ -102,8 +102,22 @@ public class Enemy:MonoBehaviour
         || transform.position.y + delta_y > UPPER_BOUND || transform.position.y - delta_y < LOWER_BOUND)
         {
             Debug.Log("Can't move outside of enemy bubble");
-            CR_running = false;
-            yield break; 
+            //CR_running = false;
+            //yield break; 
+
+            //trying to move the enemy away from the boundaries 
+            int newdir = Random.Range(0, 4); 
+            while(newdir == dir) //try to go in a different direction than before
+            {
+                newdir = Random.Range(0, 4); 
+            }
+            if(newdir == 0 || newdir == 1)
+                delta_x = 1 * Time.deltaTime * MOVE_SPEED; 
+            else if (newdir == 2 || newdir == 3)
+                delta_y = 1 * Time.deltaTime * MOVE_SPEED; 
+                
+            yield return changeDirection(delta_x, delta_y, newdir);
+
         }
 
         //Moves the enemy in a random direction
@@ -161,7 +175,61 @@ public class Enemy:MonoBehaviour
 
     }
 
+    IEnumerator changeDirection(float delta_x, float delta_y, int dir)
+    {
+        switch (dir)
+        {
+            case 0: //right 
+                Debug.Log("Moving right");
+                for(int i = 0; i < 150; i++)
+                {
+                    if(transform.position.x + delta_x < RIGHT_BOUND)
+                        transform.position = new Vector2(transform.position.x + delta_x, transform.position.y);
 
+                    yield return null; 
+                }
+                    
+                break; 
+
+            case 1: //left
+                Debug.Log("Moving left");
+                for(int i = 0; i < 150; i++){
+                    if(transform.position.x + delta_x > LEFT_BOUND)
+                        transform.position = new Vector2(transform.position.x - delta_x, transform.position.y);
+
+                    yield return null; 
+                }
+                    
+                break; 
+            
+            case 2: //up
+                Debug.Log("Moving up");
+                for(int i = 0; i < 150; i++){
+                    if(transform.position.y + delta_y < UPPER_BOUND)
+                        transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
+
+                    yield return null; 
+                }
+                    
+                break; 
+
+            case 3: //down
+                Debug.Log("Moving down");
+                for(int i = 0; i < 150; i++){
+                    if(transform.position.y + delta_y > LOWER_BOUND)
+                        transform.position = new Vector2(transform.position.x, transform.position.y - delta_y);
+
+                    yield return null; 
+                }
+
+                break; 
+
+            default: 
+                CR_running = false;
+                yield break; 
+        }
+
+    }
 
     void getPlayerVector(ref float horizontal, ref float vertical, Vector2 player_pos)
     {
