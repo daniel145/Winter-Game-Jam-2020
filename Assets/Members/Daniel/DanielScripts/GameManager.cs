@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemyPrefab;
     public GameObject pauseText;
     public GameObject textBox;
+    public GameObject holidayCard;
     public Effect[] hearts;
+    public AudioManager audioManager;
 
     private GameObject player;
     private GameObject enemies;
@@ -31,14 +33,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        audioManager.Play("bgm");
         levelData = GetComponent<Levels>();
         paused = false;
         stageNum = 0;
 
         pauseText.SetActive(false);
-        textBox.SetActive(false);
+        holidayCard.SetActive(false);
         coroutineActive = false;
-        NextLevel();
+        Invoke("NextLevel", 0.5f);
     }
 
     // Update is called once per frame
@@ -61,6 +64,8 @@ public class GameManager : MonoBehaviour
             GameOver(true);
         else if (Input.GetKeyDown(KeyCode.E))
             NextLevel();
+        else if (Input.GetKeyDown(KeyCode.F))
+            audioManager.Play("clap");
     }
 
     public void SetHealth(int hp)
@@ -95,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel(int level)
     {
-        DisplayBox(2.5f, "Level " + level);
+        StartCoroutine(DisplayBox(2.5f, "Level " + level));
         yield return new WaitForSeconds(3.25f);
         GenerateEnemies(stageNum);
     }
@@ -137,21 +142,21 @@ public class GameManager : MonoBehaviour
             coroutineActive = true;
 
         textBox.GetComponent<Text>().text = message;
-        textBox.SetActive(true);
+        holidayCard.SetActive(true);
 
         Vector3 centerInScreenSpace = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
-        Vector3 start = centerInScreenSpace + new Vector3(0, Screen.height / 2, 0);
+        Vector3 start = centerInScreenSpace + new Vector3(0, Screen.height, 0);
         Vector3 end = centerInScreenSpace;
         float t = 0;
 
         while (duration > 0)
         {
-            textBox.transform.position = Vector3.Lerp(start, end, t);
+            holidayCard.transform.position = Vector3.Lerp(start, end, t);
 
             if (duration < 0.5f && end == centerInScreenSpace)
             {
-                start = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
-                end = new Vector3(Screen.width / 2f, Screen.height * 1.5f, 0f);
+                start = centerInScreenSpace;
+                end = centerInScreenSpace + new Vector3(0, Screen.height, 0);
                 t = 0;
             }
             t += Time.deltaTime * 2;
@@ -159,7 +164,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        textBox.SetActive(false);
+        holidayCard.SetActive(false);
         coroutineActive = false;
     }
 
