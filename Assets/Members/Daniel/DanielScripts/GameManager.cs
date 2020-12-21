@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private GameObject enemies;
     //private List<bool> enemyStatus;
-    private int enemyCount;
+    private int enemyCount = 0;
     private Levels levelData;
-    private bool paused;
-    private bool coroutineActive;
-    private int stageNum;
+    private bool paused = false;
+    private bool coroutineActive = false;
+    private int stageNum = 0;
     private int health;
 
     // Parameters
@@ -35,19 +35,16 @@ public class GameManager : MonoBehaviour
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         audioManager.Play("bgm");
         levelData = GetComponent<Levels>();
-        paused = false;
-        stageNum = 0;
 
         pauseText.SetActive(false);
         holidayCard.SetActive(false);
-        coroutineActive = false;
-        Invoke("NextLevel", 0.5f);
+        NextLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !coroutineActive)
+        if (Input.GetKeyDown(KeyCode.Escape) && !coroutineActive && enemyCount != 0)
         {
             if (paused)
                 StartAllObjects();
@@ -66,6 +63,8 @@ public class GameManager : MonoBehaviour
             NextLevel();
         else if (Input.GetKeyDown(KeyCode.F))
             audioManager.Play("clap");
+        else if (Input.GetKeyDown(KeyCode.G))
+            audioManager.Play("zombieDeath");
     }
 
     public void SetHealth(int hp)
@@ -100,6 +99,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel(int level)
     {
+        audioManager.Play("bell");
         StartCoroutine(DisplayBox(2.5f, "Level " + level));
         yield return new WaitForSeconds(3.25f);
         GenerateEnemies(stageNum);
@@ -132,6 +132,7 @@ public class GameManager : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab[data[i].Item1], data[i].Item2, Quaternion.identity, enemies.transform);
             // Assign an ID???
         }
+        audioManager.Play("zombieSpawn");
     }
 
     private IEnumerator DisplayBox(float duration, string message)
@@ -171,7 +172,17 @@ public class GameManager : MonoBehaviour
     private void GameOver(bool result)
     {
         Destroy(enemies);
-        string closingMessage = result ? "You win!" : "You lose";
+        string closingMessage;
+        if (result)
+        {
+            closingMessage = "You win!";
+            audioManager.Play("win");
+        }
+        else
+        {
+            closingMessage = "You lose";
+            audioManager.Play("lose");
+        }
         StartCoroutine(DisplayBox(300, closingMessage));
     }
 }

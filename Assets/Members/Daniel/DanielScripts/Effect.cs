@@ -9,7 +9,6 @@ public class Effect : MonoBehaviour
     public bool Visible { get; private set; }
     private Image image;
     
-
     // Start is called before the first frame update
     void Start()
     {
