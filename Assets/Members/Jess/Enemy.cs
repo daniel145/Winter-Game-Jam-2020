@@ -13,8 +13,9 @@ public class Enemy:MonoBehaviour
     const float MOVE_SPEED = 1.0f; 
     public GameObject BulletObject; //a prefab 
     private Vector2 EnemyPosition; 
-    public GameObject Player; 
+    private GameObject Player; 
     private float time_elapsed = 0;
+    private int health = 3; 
     private bool CR_running = false; 
 
     void Start()
@@ -27,13 +28,16 @@ public class Enemy:MonoBehaviour
         if(temp != (Vector2)Player.transform.position) //don't spawn an enemy on top of a player
         {
             transform.position = temp; 
-            StartCoroutine(Move());
         }
     }
 
     void Update()
     {
-        //move in a random direction, somewhat following the player? 
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+
         if(CR_running == false)
         {
             StartCoroutine(Move());
@@ -51,7 +55,7 @@ public class Enemy:MonoBehaviour
     void Shoot()
     {
         //calculate the path the bullet should go on 
-        float h = 1000; //really big placeholder values for debugging
+        float h = 1000; //placeholder values for debugging
         float v = 1000; 
         getPlayerVector(ref h, ref v, Player.transform.position);
 
@@ -62,12 +66,12 @@ public class Enemy:MonoBehaviour
         b.vertical = v; 
     }
 
-    IEnumerator Move() //unfinished
+    IEnumerator Move()
     {
         CR_running = true; 
         
         //move in a random direction, but don't get too close to the player
-        //have enemies move within a predetermined box rn for convenience 
+        //currently have enemies move within a predetermined box for convenience 
         //todo: prevent enemies from running into each other
 
         //const float dist_between_enemies = 1.0f; 
@@ -101,81 +105,30 @@ public class Enemy:MonoBehaviour
         if(transform.position.x + delta_x > RIGHT_BOUND || transform.position.x - delta_x < LEFT_BOUND
         || transform.position.y + delta_y > UPPER_BOUND || transform.position.y - delta_y < LOWER_BOUND)
         {
-            Debug.Log("Can't move outside of enemy bubble");
+            Debug.Log("Can't move outside of enemy box");
             //CR_running = false;
             //yield break; 
 
             //trying to move the enemy away from the boundaries 
             int newdir = Random.Range(0, 4); 
-            while(newdir == dir) //try to go in a different direction than before
+            while(newdir == dir) 
             {
                 newdir = Random.Range(0, 4); 
             }
             if(newdir == 0 || newdir == 1)
-                delta_x = 1 * Time.deltaTime * MOVE_SPEED; 
+                delta_x =  Time.deltaTime * MOVE_SPEED; 
             else if (newdir == 2 || newdir == 3)
-                delta_y = 1 * Time.deltaTime * MOVE_SPEED; 
+                delta_y =  Time.deltaTime * MOVE_SPEED; 
                 
-            yield return changeDirection(delta_x, delta_y, newdir);
+            yield return takeSteps(delta_x, delta_y, newdir);
 
         }
 
-        //Moves the enemy in a random direction
-        switch (dir)
-        {
-            case 0: //right 
-                Debug.Log("Moving right");
-                for(int i = 0; i < 150; i++)
-                {
-                    if(transform.position.x + delta_x < RIGHT_BOUND)
-                        transform.position = new Vector2(transform.position.x + delta_x, transform.position.y);
-
-                    yield return null; 
-                }
-                    
-                break; 
-
-            case 1: //left
-                Debug.Log("Moving left");
-                for(int i = 0; i < 150; i++){
-                    if(transform.position.x + delta_x > LEFT_BOUND)
-                        transform.position = new Vector2(transform.position.x - delta_x, transform.position.y);
-
-                    yield return null; 
-                }
-                    
-                break; 
-            
-            case 2: //up
-                Debug.Log("Moving up");
-                for(int i = 0; i < 150; i++){
-                    if(transform.position.y + delta_y < UPPER_BOUND)
-                        transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
-
-                    yield return null; 
-                }
-                    
-                break; 
-
-            case 3: //down
-                Debug.Log("Moving down");
-                for(int i = 0; i < 150; i++){
-                    if(transform.position.y + delta_y > LOWER_BOUND)
-                        transform.position = new Vector2(transform.position.x, transform.position.y - delta_y);
-
-                    yield return null; 
-                }
-
-                break; 
-            default: 
-                CR_running = false;
-                yield break; 
-        }
+        yield return takeSteps(delta_x,  delta_y, dir);
         CR_running = false;
-
     }
 
-    IEnumerator changeDirection(float delta_x, float delta_y, int dir)
+    IEnumerator takeSteps(float delta_x, float delta_y, int dir)
     {
         switch (dir)
         {
@@ -225,10 +178,17 @@ public class Enemy:MonoBehaviour
                 break; 
 
             default: 
-                CR_running = false;
                 yield break; 
         }
 
+    }
+
+    void OnTriggerEnter2D(Collider2D other)  
+    {
+        if(other.gameObject.CompareTag("Weapon")) //or whichever tag is relevant 
+        {
+            health--; 
+        }
     }
 
     void getPlayerVector(ref float horizontal, ref float vertical, Vector2 player_pos)

@@ -7,7 +7,7 @@ public class Bullet:MonoBehaviour
     public float horizontal; 
     public float vertical; 
     const int SPEED = 3; 
-    public GameObject Player;    
+    //public GameObject Player;    
     
     /*void Start()
     { 
@@ -22,7 +22,6 @@ public class Bullet:MonoBehaviour
         float delta_x = horizontal * Time.deltaTime * SPEED; 
         float delta_y = vertical * Time.deltaTime * SPEED; 
         this.transform.position = new Vector2(transform.position.x + delta_x, transform.position.y + delta_y);
-
     }
 
     //todo: if it hits the player, decrease player health 

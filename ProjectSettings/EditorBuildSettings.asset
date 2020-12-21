@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Members/Jess/SampleSceneJ.unity
+    guid: e205094f6a6284b00b4394d36bca2314
   m_configObjects: {}
