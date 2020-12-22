@@ -828,9 +828,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_15
       rect:
         serializedVersion: 2
-        x: 98
+        x: 97
         y: 1856
-        width: 33
+        width: 34
         height: 29
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -849,9 +849,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_16
       rect:
         serializedVersion: 2
-        x: 194
+        x: 193
         y: 1856
-        width: 33
+        width: 34
         height: 28
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -870,9 +870,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_17
       rect:
         serializedVersion: 2
-        x: 290
+        x: 289
         y: 1856
-        width: 33
+        width: 34
         height: 28
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -1059,9 +1059,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_26
       rect:
         serializedVersion: 2
-        x: 100
+        x: 99
         y: 1662
-        width: 25
+        width: 26
         height: 34
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -1080,9 +1080,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_27
       rect:
         serializedVersion: 2
-        x: 199
+        x: 198
         y: 1665
-        width: 25
+        width: 26
         height: 33
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -1101,9 +1101,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_28
       rect:
         serializedVersion: 2
-        x: 297
+        x: 296
         y: 1663
-        width: 26
+        width: 27
         height: 32
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -1165,9 +1165,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 99
-        y: 1567
+        y: 1568
         width: 25
-        height: 30
+        height: 29
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1479,9 +1479,9 @@ TextureImporter:
       name: Santa - Sprite Sheet_46
       rect:
         serializedVersion: 2
-        x: 479
+        x: 480
         y: 1472
-        width: 32
+        width: 31
         height: 22
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -2235,12 +2235,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_82
       rect:
         serializedVersion: 2
-        x: 0
-        y: 767
-        width: 98
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 66
+        y: 800
+        width: 27
+        height: 31
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2257,11 +2257,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 156
-        y: 767
-        width: 38
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 800
+        width: 35
+        height: 29
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2278,11 +2278,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 252
-        y: 767
-        width: 38
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 800
+        width: 35
+        height: 29
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2299,11 +2299,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 348
-        y: 767
-        width: 38
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 800
+        width: 35
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2320,11 +2320,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 449
-        y: 799
-        width: 29
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 800
+        width: 28
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2340,12 +2340,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_87
       rect:
         serializedVersion: 2
-        x: 0
-        y: 671
-        width: 98
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 66
+        y: 704
+        width: 27
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2362,11 +2362,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 671
-        width: 34
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 704
+        width: 30
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2383,11 +2383,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 255
-        y: 671
-        width: 35
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 704
+        width: 30
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2404,11 +2404,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 352
-        y: 671
-        width: 34
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 704
+        width: 29
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2426,10 +2426,10 @@ TextureImporter:
         serializedVersion: 2
         x: 451
         y: 703
-        width: 27
+        width: 26
         height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2445,12 +2445,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_92
       rect:
         serializedVersion: 2
-        x: 0
-        y: 575
-        width: 98
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 67
+        y: 608
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2466,12 +2466,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_93
       rect:
         serializedVersion: 2
-        x: 161
-        y: 575
-        width: 33
-        height: 65
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 162
+        y: 606
+        width: 28
+        height: 34
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2488,11 +2488,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 255
-        y: 610
+        y: 609
         width: 27
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 33
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2509,11 +2509,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 349
-        y: 575
-        width: 37
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 608
+        width: 27
+        height: 31
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2530,11 +2530,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 443
-        y: 607
-        width: 28
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 608
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2550,12 +2550,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_97
       rect:
         serializedVersion: 2
-        x: 535
-        y: 607
-        width: 28
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 536
+        y: 608
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2571,12 +2571,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_98
       rect:
         serializedVersion: 2
-        x: 0
-        y: 479
-        width: 98
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 67
+        y: 512
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2592,12 +2592,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_99
       rect:
         serializedVersion: 2
-        x: 162
-        y: 479
-        width: 32
-        height: 62
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 164
+        y: 512
+        width: 25
+        height: 29
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2615,10 +2615,10 @@ TextureImporter:
         serializedVersion: 2
         x: 259
         y: 511
-        width: 31
-        height: 67
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        width: 25
+        height: 32
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2635,11 +2635,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 353
-        y: 511
+        y: 509
         width: 28
-        height: 33
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 35
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2656,11 +2656,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 441
-        y: 479
-        width: 41
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 509
+        width: 32
+        height: 37
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2677,11 +2677,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 536
-        y: 479
-        width: 42
-        height: 68
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 512
+        width: 28
+        height: 35
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2697,12 +2697,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_104
       rect:
         serializedVersion: 2
-        x: 626
-        y: 516
-        width: 31
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 627
+        y: 514
+        width: 29
+        height: 34
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2719,11 +2719,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 721
-        y: 515
+        y: 514
         width: 26
-        height: 31
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 32
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2740,11 +2740,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 813
-        y: 0
-        width: 51
-        height: 578
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 512
+        width: 25
+        height: 29
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2760,12 +2760,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_107
       rect:
         serializedVersion: 2
-        x: 0
-        y: 383
-        width: 98
-        height: 63
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 67
+        y: 416
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2781,12 +2781,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_108
       rect:
         serializedVersion: 2
-        x: 163
-        y: 383
-        width: 31
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 164
+        y: 415
+        width: 25
+        height: 28
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2803,11 +2803,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 260
-        y: 420
-        width: 30
-        height: 62
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 417
+        width: 28
+        height: 33
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2824,11 +2824,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 350
-        y: 383
-        width: 36
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 416
+        width: 34
+        height: 35
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2845,11 +2845,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 448
-        y: 383
-        width: 34
-        height: 61
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 416
+        width: 32
+        height: 28
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2866,11 +2866,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 545
-        y: 383
-        width: 33
-        height: 55
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 416
+        width: 31
+        height: 22
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2887,11 +2887,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 640
-        y: 383
-        width: 34
-        height: 99
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 416
+        width: 29
+        height: 27
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2907,12 +2907,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_114
       rect:
         serializedVersion: 2
-        x: 738
-        y: 415
-        width: 32
-        height: 67
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 739
+        y: 416
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3139,9 +3139,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 450
-        y: 223
-        width: 28
-        height: 31
+        y: 191
+        width: 29
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3159,12 +3159,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_126
       rect:
         serializedVersion: 2
-        x: 0
-        y: 94
-        width: 98
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 67
+        y: 128
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3180,12 +3180,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_127
       rect:
         serializedVersion: 2
-        x: 161
-        y: 95
-        width: 33
-        height: 60
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 162
+        y: 128
+        width: 27
+        height: 27
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3202,11 +3202,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 258
-        y: 95
-        width: 32
-        height: 61
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 128
+        width: 27
+        height: 28
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3223,11 +3223,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 354
-        y: 126
-        width: 28
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 128
+        width: 27
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3243,12 +3243,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_130
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 98
-        height: 62
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 67
+        y: 32
+        width: 26
+        height: 30
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3264,12 +3264,12 @@ TextureImporter:
       name: Santa - Sprite Sheet_131
       rect:
         serializedVersion: 2
-        x: 161
-        y: 0
-        width: 33
-        height: 59
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 162
+        y: 32
+        width: 27
+        height: 27
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3286,11 +3286,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 260
-        y: 0
-        width: 30
-        height: 55
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 32
+        width: 25
+        height: 23
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3307,11 +3307,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 353
-        y: 0
-        width: 33
-        height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 32
+        width: 28
+        height: 18
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3328,11 +3328,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 449
-        y: 0
-        width: 33
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 32
+        width: 28
+        height: 16
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3349,11 +3349,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 545
-        y: 0
-        width: 33
-        height: 49
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 32
+        width: 28
+        height: 17
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3370,11 +3370,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 641
-        y: 30
-        width: 29
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        y: 32
+        width: 28
+        height: 16
+      alignment: 8
+      pivot: {x: 1, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
