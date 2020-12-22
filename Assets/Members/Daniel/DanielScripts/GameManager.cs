@@ -65,6 +65,10 @@ public class GameManager : MonoBehaviour
             audioManager.Play("clap");
         else if (Input.GetKeyDown(KeyCode.G))
             audioManager.Play("zombieDeath");
+        else if (Input.GetKeyDown(KeyCode.H))
+            audioManager.Play("zombieHit");
+        else if (Input.GetKeyDown(KeyCode.I))
+            audioManager.Play("playerHit");
     }
 
     public void SetHealth(int hp)
@@ -100,6 +104,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator StartLevel(int level)
     {
         audioManager.Play("bell");
+        audioManager.Play("playerSpawn");
         StartCoroutine(DisplayBox(2.5f, "Level " + level));
         yield return new WaitForSeconds(3.25f);
         GenerateEnemies(stageNum);
