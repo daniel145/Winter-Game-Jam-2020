@@ -4,49 +4,51 @@ using UnityEngine;
 
 public class Enemy:MonoBehaviour
 {
-    const float WAIT_TIME = 1.0f; //fires bullets at 1 second intervals 
-    //bounds for spawning enemies in; maybe use camera instead?
-    const float LEFT_BOUND = 0f; 
-    const float RIGHT_BOUND = 5f; 
-    const float LOWER_BOUND = -5f; 
-    const float UPPER_BOUND = 5f; 
-    const float MOVE_SPEED = 1.0f; 
-    public GameObject BulletObject; //a prefab 
-    private Vector2 EnemyPosition; 
+    public GameObject bulletObject; //a prefab 
     private GameObject Player; 
-    private float time_elapsed = 0;
-    private int health = 3; 
+    private float time_elapsed = 0; 
     private bool CR_running = false; 
+
+    /* Change these to adjust difficulty */
+    public int health = 3; 
+    public bool canBeKnockedBack = true; 
+    public float knockback_distance = 50f; 
+    public float knockback_speed = 2.0f; 
+    public float shooting_distance = 5.0f; //How close the player has to be before the enemy starts shooting and moving toward it 
+    public float move_speed = 1.0f; 
+    public float time_between_bullets = 1.0f;
+    //Enemy spawns within these bounds
+    public float left_bound = -7f; 
+    public float right_bound = 5f; 
+    public float lower_bound = -4f; 
+    public float upper_bound = 4f; 
 
     void Start()
     {
-        //get the Player 
+        //Get the Player 
         Player = GameObject.FindWithTag("Player"); 
 
         //Spawn enemy at random position 
-        Vector2 temp = new Vector2(Random.Range(LEFT_BOUND, RIGHT_BOUND), Random.Range(LOWER_BOUND, UPPER_BOUND));
-        if(temp != (Vector2)Player.transform.position) //don't spawn an enemy on top of a player
-        {
+        Vector2 temp = new Vector2(Random.Range(left_bound, right_bound), Random.Range(lower_bound, upper_bound));
+        //Vector2 temp = new Vector2(0, 0); //for testing 
+        if(temp != (Vector2)Player.transform.position) //Don't spawn an enemy on top of a player
             transform.position = temp; 
-        }
     }
 
     void Update()
     {
         if(health <= 0)
-        {
             Destroy(this.gameObject);
-        }
 
         if(CR_running == false)
-        {
             StartCoroutine(Move());
-        }
 
         time_elapsed += Time.deltaTime; 
-        if(time_elapsed >= WAIT_TIME)
+        if(time_elapsed >= time_between_bullets)
         {
-            Shoot(); 
+            if(Vector2.Distance((Vector2)Player.transform.position, (Vector2)transform.position) <= shooting_distance)
+                Shoot(); 
+
             time_elapsed = 0; 
         }
 
@@ -59,9 +61,8 @@ public class Enemy:MonoBehaviour
         float v = 1000; 
         getPlayerVector(ref h, ref v, Player.transform.position);
 
-        GameObject temp = Instantiate(BulletObject, (Vector2)transform.position, Quaternion.identity); 
+        GameObject temp = Instantiate(bulletObject, (Vector2)transform.position, Quaternion.identity); 
         Bullet b = temp.GetComponent<Bullet> (); 
-        //b.transform.parent = this.transform; //make the bullet a child of the enemy
         b.horizontal = h; 
         b.vertical = v; 
     }
@@ -72,56 +73,71 @@ public class Enemy:MonoBehaviour
         
         //move in a random direction, but don't get too close to the player
         //currently have enemies move within a predetermined box for convenience 
-        //todo: prevent enemies from running into each other
 
-        //const float dist_between_enemies = 1.0f; 
         const float min_distance_from_player = 3.0f; 
         Vector2 player_pos = Player.transform.position; 
-        float upper_bound = player_pos.y + min_distance_from_player; //should rename later 
-        float lower_bound = player_pos.y - min_distance_from_player; 
-        float right_bound = player_pos.x + min_distance_from_player;
-        float left_bound = player_pos.x - min_distance_from_player; 
+        float player_upper_bound = player_pos.y + min_distance_from_player;  
+        float player_lower_bound = player_pos.y - min_distance_from_player; 
+        float player_right_bound = player_pos.x + min_distance_from_player;
+        float player_left_bound = player_pos.x - min_distance_from_player; 
 
+        float h = 0; 
+        float v = 0; 
+        getPlayerVector(ref h, ref v, Player.transform.position); 
+
+        //Setting how far & in which direction the enemy should move 
         float delta_x = 0; 
         float delta_y = 0; 
-        int dir = Random.Range(0, 4); 
+        int dir = Random.Range(0, 4); //0, 1, 2, and 3 represent the 4 directions
+        setMovementDirection(ref delta_x, ref delta_y, dir);
 
-        
-        if(dir == 0 || dir == 1)
-            delta_x = 1 * Time.deltaTime * MOVE_SPEED; 
-        else if (dir == 2 || dir == 3)
-            delta_y = 1 * Time.deltaTime * MOVE_SPEED; 
-
-        //don't move if you go inside the player's "bubble"
-        if(transform.position.x + delta_x <= right_bound && transform.position.x - delta_x >= left_bound
-        && transform.position.y + delta_y <= upper_bound && transform.position.y - delta_y >= lower_bound)
+        //Make enemy move in player's direction if they are within range 
+        if(Vector2.Distance((Vector2)Player.transform.position, (Vector2)transform.position) <= shooting_distance) 
         {
-            Debug.Log("Can't move into player bubble");
+            if(h > 0 && delta_x < 0) 
+                delta_x *= -1; 
+            else if (h < 0 && delta_x > 0)
+                delta_x *= -1; 
+            
+            if(v > 0 && delta_y < 0)
+                delta_y *= -1; 
+            else if(v < 0 && delta_y > 0)
+                delta_y *= -1;      
+        } 
+
+        //Don't move if you hit the player's "bubble"
+        /* if(isInBounds(player_left_bound - delta_x, player_right_bound - delta_x, player_upper_bound - delta_y, player_lower_bound - delta_y))
+        {
+            Debug.Log("Hit edge of player bubble");
             CR_running = false;
             yield break; 
-        }
+        } */
         
-        //also prevent the enemy from moving outside the bounds of the game 
-        if(transform.position.x + delta_x > RIGHT_BOUND || transform.position.x - delta_x < LEFT_BOUND
-        || transform.position.y + delta_y > UPPER_BOUND || transform.position.y - delta_y < LOWER_BOUND)
+        //Also prevent the enemy from moving outside the bounds of the game
+        if(!isInBounds(left_bound - delta_x, right_bound - delta_x, upper_bound - delta_y, lower_bound - delta_y)
+             || isInBounds(player_left_bound - delta_x, player_right_bound - delta_x, player_upper_bound - delta_y, player_lower_bound - delta_y) ) 
         {
-            Debug.Log("Can't move outside of enemy box");
-            //CR_running = false;
-            //yield break; 
+            if(!isInBounds(left_bound - delta_x, right_bound - delta_x, upper_bound - delta_y, lower_bound - delta_y))
+                Debug.Log("Hit edge of enemy box");
+            if(isInBounds(player_left_bound - delta_x, player_right_bound - delta_x, player_upper_bound - delta_y, player_lower_bound - delta_y))
+                Debug.Log("Hit edge of player box");
+            
+            //Reverse direction
+            if(dir == 0)
+                dir = 1; 
+            else if(dir == 1)
+                dir = 0; 
+            else if(dir == 2)
+                dir = 3; 
+            else if(dir == 3)
+                dir = 2; 
 
-            //trying to move the enemy away from the boundaries 
-            int newdir = Random.Range(0, 4); 
-            while(newdir == dir) 
-            {
-                newdir = Random.Range(0, 4); 
-            }
-            if(newdir == 0 || newdir == 1)
-                delta_x =  Time.deltaTime * MOVE_SPEED; 
-            else if (newdir == 2 || newdir == 3)
-                delta_y =  Time.deltaTime * MOVE_SPEED; 
-                
-            yield return takeSteps(delta_x, delta_y, newdir);
-
+            setMovementDirection(ref delta_x, ref delta_y, dir);
+            
+            Debug.Log("beep beep reversing"); 
+            yield return takeSteps(delta_x, delta_y, dir);
+            CR_running = false;
+            yield break; 
         }
 
         yield return takeSteps(delta_x,  delta_y, dir);
@@ -133,10 +149,10 @@ public class Enemy:MonoBehaviour
         switch (dir)
         {
             case 0: //right 
-                Debug.Log("Moving right");
+                //Debug.Log("Moving right");
                 for(int i = 0; i < 150; i++)
                 {
-                    if(transform.position.x + delta_x < RIGHT_BOUND)
+                    if(transform.position.x + delta_x < right_bound)
                         transform.position = new Vector2(transform.position.x + delta_x, transform.position.y);
 
                     yield return null; 
@@ -145,10 +161,11 @@ public class Enemy:MonoBehaviour
                 break; 
 
             case 1: //left
-                Debug.Log("Moving left");
-                for(int i = 0; i < 150; i++){
-                    if(transform.position.x + delta_x > LEFT_BOUND)
-                        transform.position = new Vector2(transform.position.x - delta_x, transform.position.y);
+                //Debug.Log("Moving left");
+                for(int i = 0; i < 150; i++)
+                {
+                    if(transform.position.x + delta_x > left_bound)
+                        transform.position = new Vector2(transform.position.x + delta_x, transform.position.y);
 
                     yield return null; 
                 }
@@ -156,9 +173,10 @@ public class Enemy:MonoBehaviour
                 break; 
             
             case 2: //up
-                Debug.Log("Moving up");
-                for(int i = 0; i < 150; i++){
-                    if(transform.position.y + delta_y < UPPER_BOUND)
+                //Debug.Log("Moving up");
+                for(int i = 0; i < 150; i++)
+                {
+                    if(transform.position.y + delta_y < upper_bound)
                         transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
 
                     yield return null; 
@@ -167,10 +185,11 @@ public class Enemy:MonoBehaviour
                 break; 
 
             case 3: //down
-                Debug.Log("Moving down");
-                for(int i = 0; i < 150; i++){
-                    if(transform.position.y + delta_y > LOWER_BOUND)
-                        transform.position = new Vector2(transform.position.x, transform.position.y - delta_y);
+                //Debug.Log("Moving down");
+                for(int i = 0; i < 150; i++)
+                {
+                    if(transform.position.y + delta_y > lower_bound)
+                        transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
 
                     yield return null; 
                 }
@@ -186,8 +205,13 @@ public class Enemy:MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)  
     {
         if(other.gameObject.CompareTag("Weapon")) //or whichever tag is relevant 
-        {
             health--; 
+
+        if(health > 0 && other.gameObject.CompareTag("Weapon") && canBeKnockedBack) 
+        {
+            Debug.Log("Beginning knockback");
+            StartCoroutine(getKnockedBack(other.gameObject));
+            Debug.Log("Done being knocked back");
         }
     }
 
@@ -198,5 +222,37 @@ public class Enemy:MonoBehaviour
         float magnitude = Mathf.Sqrt((horizontal*horizontal) + (vertical*vertical));
         horizontal /= magnitude; 
         vertical /= magnitude; 
+    }
+
+    void setMovementDirection(ref float delta_x, ref float delta_y, int dir)
+    {
+        if(dir == 0) 
+            delta_x = 1 * Time.deltaTime * move_speed; 
+        else if (dir == 1)
+            delta_x = -1 * Time.deltaTime * move_speed; 
+        else if (dir == 2)
+            delta_y = 1 * Time.deltaTime * move_speed; 
+        else if (dir == 3)
+            delta_y = -1 * Time.deltaTime * move_speed; 
+    }
+
+    IEnumerator getKnockedBack(GameObject g)
+    {
+        float h = 0; 
+        float v = 0; 
+        getPlayerVector(ref h, ref v, g.transform.position); //function name is a misnomer
+        for(int i = 0; i < knockback_distance; i++)
+        {
+            //todo: break if you hit another weapon in the middle of this -- multiple knockbacks? 
+            transform.position = new Vector2(transform.position.x - (h * Time.deltaTime * knockback_speed), transform.position.y - (v * Time.deltaTime * knockback_speed));
+            yield return null; 
+        }
+
+    }
+
+    bool isInBounds(float leftb, float rb, float ub, float lowerb)
+    {
+        return (transform.position.x < rb && transform.position.x > leftb 
+        && transform.position.y < ub && transform.position.y > lowerb);
     }
 }

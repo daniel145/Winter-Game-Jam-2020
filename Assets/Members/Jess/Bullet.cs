@@ -6,10 +6,10 @@ public class Bullet:MonoBehaviour
 {
     public float horizontal; 
     public float vertical; 
-    const int SPEED = 3; 
-    //public GameObject Player;    
+    private const int SPEED = 3;     
     
-    /*void Start()
+    /*
+    void Start()
     { 
         //for testing purposes
         horizontal = 1; 
@@ -25,10 +25,13 @@ public class Bullet:MonoBehaviour
     }
 
     //todo: if it hits the player, decrease player health 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("collision!");
-        Destroy(this.gameObject);
+        if(other.gameObject.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     //Destroy the bullet if it flies off screen 
