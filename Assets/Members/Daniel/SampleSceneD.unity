@@ -1093,10 +1093,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f24920cfcd284fed9f913ffeea8039b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2868457578233302527, guid: d32ff14890afa49dcb22c58d441441ee,
+  playerPrefab: {fileID: 8182538838992759471, guid: d32ff14890afa49dcb22c58d441441ee,
     type: 3}
   enemyPrefab:
-  - {fileID: 4869476320553117554, guid: 15ecdaaa0860546c285b72d23a4ed96d, type: 3}
+  - {fileID: 6669173177312594763, guid: 15ecdaaa0860546c285b72d23a4ed96d, type: 3}
   pauseText: {fileID: 1149833490}
   textBox: {fileID: 325693405}
   holidayCard: {fileID: 583203495}
