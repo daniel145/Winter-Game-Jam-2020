@@ -34,6 +34,7 @@ public class Effect : MonoBehaviour
     }
 
     // Makes the image flash twice in a duration of 0.5 sec
+    // Turns off in the end
     private IEnumerator Flash()
     {
         Color imageColor = image.color;
@@ -51,6 +52,7 @@ public class Effect : MonoBehaviour
     }
 
     // Makes the image flash twice in a duration of 0.5 sec
+    // Turns on in the end
     private IEnumerator InverseFlash()
     {
         Color imageColor = image.color;

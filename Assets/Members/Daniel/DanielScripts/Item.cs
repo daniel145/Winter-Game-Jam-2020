@@ -37,14 +37,17 @@ public class Item : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Collect();
-            // Tell the player how much health to recover
+            if (health != 0)
+                collision.gameObject.GetComponent<HealthsDmg2>().AddHealth(health);
+            else
+                collision.gameObject.GetComponentInChildren<SackAttack2>().AddPresent();
         }
     }
 
     public void Collect()
     {
         GetComponent<Collider2D>().enabled = false;
-        if (CompareTag("Untagged"))
+        if (CompareTag("Food"))
             audioManager.Play("chomp");
         else
             audioManager.Play("powerup");

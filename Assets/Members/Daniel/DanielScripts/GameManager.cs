@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private bool coroutineActive = false;
     private bool followPlayer = true;
     private int stageNum = 0;
-    private int health;
+    private int health = 0;
 
     // Parameters
     private int MAX_HEALTH = 9;
@@ -57,12 +57,18 @@ public class GameManager : MonoBehaviour
         holidayCard.SetActive(false);
 
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).transform;
+        player.GetComponentInChildren<HealthsDmg2>().gm = this;
         NextLevel();
         GenerateItems(MIN_TIME, MAX_TIME);
+        Invoke("DelayHealth", 0.5f);
+    }
+
+    private void DelayHealth()
+    {
+        SetHealth(MAX_HEALTH);  
     }
 
     // Currently used for testing purposes
-    // TODO: Remove testing buttons
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !coroutineActive && enemyCount != 0)
@@ -72,36 +78,6 @@ public class GameManager : MonoBehaviour
             else
                 StopAllObjects();
         }
-        else if (Input.GetKeyDown(KeyCode.A))
-            audioManager.Play("playerSpawn");
-        else if (Input.GetKeyDown(KeyCode.B))
-            SetHealth(Random.Range(1, 9));
-        else if (Input.GetKeyDown(KeyCode.C))
-            GameOver(false);
-        else if (Input.GetKeyDown(KeyCode.D))
-            GameOver(true);
-        else if (Input.GetKeyDown(KeyCode.E))
-            NextLevel();
-        else if (Input.GetKeyDown(KeyCode.F))
-            audioManager.Play("playerDeath");
-        else if (Input.GetKeyDown(KeyCode.G))
-            audioManager.Play("zombieDeath");
-        else if (Input.GetKeyDown(KeyCode.H))
-            audioManager.Play("zombieHit");
-        else if (Input.GetKeyDown(KeyCode.I))
-            audioManager.Play("playerHit");
-        else if (Input.GetKeyDown(KeyCode.J))
-            EnemyKilled(enemies.transform.GetChild(0));
-        else if (Input.GetKeyDown(KeyCode.K))
-            audioManager.Play("swish");
-        else if (Input.GetKeyDown(KeyCode.L))
-            audioManager.Play("explosion");
-        else if (Input.GetKeyDown(KeyCode.M))
-            audioManager.Play("chomp");
-        else if (Input.GetKeyDown(KeyCode.N))
-            audioManager.Play("powerup");
-        else if (Input.GetKeyDown(KeyCode.O))
-            SetHealth(0);
     }
 
     // Update camera position to follow player
@@ -120,10 +96,13 @@ public class GameManager : MonoBehaviour
             hp = MAX_HEALTH;
 
         for (int i = 0; i < MAX_HEALTH; i++)
-            if (i > hp)
-                hearts[i].ChangeVisibility(false);
-            else
+        {
+            if (i < hp)
                 hearts[i].ChangeVisibility(true);
+            else
+                hearts[i].ChangeVisibility(false);
+        }
+        health = hp;
 
         if (hp == 0)
             StartCoroutine(SlowMotionDeath());
