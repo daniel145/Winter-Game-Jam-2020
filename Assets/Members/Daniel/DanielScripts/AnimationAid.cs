@@ -7,9 +7,7 @@ public class AnimationAid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Animator animator = GetComponent<Animator>();
         Vector2 colliderSize = transform.parent.GetComponent<BoxCollider2D>().size;
-        float colliderWidth = colliderSize.x;
-        transform.position -= new Vector3(colliderWidth / 2, colliderSize.y / 2, 0);
+        transform.position -= new Vector3(colliderSize.x / 2, colliderSize.y / 2, 0);
     }
 }
