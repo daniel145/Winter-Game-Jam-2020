@@ -39,6 +39,7 @@ public class SackAttack2 : MonoBehaviour
     public void AddPresent()
     {
         presents++;
+        transform.localScale = new Vector3(presents + 1, presents + 1, 0);
     }
 
     public int PresentCount()
@@ -48,9 +49,10 @@ public class SackAttack2 : MonoBehaviour
 
     private IEnumerator WeaponSwing()
     {
+        transform.rotation = Quaternion.identity;
         while(counter < 1.1f)
         {
-            transform.RotateAround(target.transform.position, new Vector3(0, 0, 45), counter * 150);
+            transform.RotateAround(target.transform.position, new Vector3(0, 0, 45), counter * 10);
             yield return null;
             counter += Time.deltaTime;
         }

@@ -78,6 +78,14 @@ public class GameManager : MonoBehaviour
             else
                 StopAllObjects();
         }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            player.GetComponentInChildren<SackAttack2>().AddPresent();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            GameOver(true);
+        }
     }
 
     // Update camera position to follow player
