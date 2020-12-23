@@ -41,6 +41,11 @@ public class SackAttack2 : MonoBehaviour
         presents++;
     }
 
+    public int PresentCount()
+    {
+        return presents;
+    }
+
     private IEnumerator WeaponSwing()
     {
         while(counter < 1.1f)

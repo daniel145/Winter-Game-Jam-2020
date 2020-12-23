@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour
         if (result)
         {
             holidayCard.GetComponent<Image>().sprite = winSprite;
-            closingMessage = "Hooray! " + "?" + " presents\ndelivered during the\nZombie Apocalypse!";
+            closingMessage = "Hooray! " + player.GetComponentInChildren<SackAttack2>().PresentCount() + " presents\ndelivered during the\nZombie Apocalypse!";
             audioManager.Play("win");
         }
         else

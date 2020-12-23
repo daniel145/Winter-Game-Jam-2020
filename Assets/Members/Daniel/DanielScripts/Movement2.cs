@@ -10,7 +10,7 @@ public class Movement2 : MonoBehaviour
     private Vector2 moveVelocity;
     bool attacking;
     public float attackCD;
-    public float cdLength = 10;
+    public float cdLength = 1.1f;
 
     private bool facingRight;
     private int animationID;
@@ -25,7 +25,6 @@ public class Movement2 : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         attackCD = 0;
-        atkRecharge.Recharge(attackCD);
         animationID = Animator.StringToHash("State");
     }
 
@@ -34,6 +33,14 @@ public class Movement2 : MonoBehaviour
     {
         if (still)
             return;
+        else if (Input.GetKeyDown(KeyCode.Space) && attackCD == 0)
+        {
+            sackAttack.Attack();
+            animator.SetInteger(animationID, 2);
+            attackCD = cdLength;
+            StartCoroutine(Cooldown());
+            return;
+        }
 
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput.normalized * movespeed;
@@ -53,18 +60,6 @@ public class Movement2 : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
-        //rb.AddForce(moveVelocity * Time.deltaTime);
-        //transform.position += new Vector3(moveVelocity.x, moveVelocity.y, 0) * Time.deltaTime;
-
-        attacking = Input.GetKeyDown(KeyCode.Space);
-       //to react when the button is pushed
-       if (attacking && attackCD == 0)
-        { 
-            sackAttack.Attack();
-            animator.SetInteger(animationID, 2);
-            attackCD = cdLength;
-            StartCoroutine(Cooldown());
-        }
     }
 
     public void StopMovement(float time)

@@ -12000,7 +12000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f24920cfcd284fed9f913ffeea8039b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4199541212683194008, guid: 72c51cc392a0140888afa9db74cee6d9,
+  playerPrefab: {fileID: 8930983945981681030, guid: 316ecec0bf1f24c28bc6303d1024eae3,
     type: 3}
   enemyPrefab:
   - {fileID: 3649996789889075045, guid: 68553fbe3500f4930b948ddc541b9949, type: 3}

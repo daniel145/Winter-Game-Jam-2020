@@ -43,9 +43,8 @@ public class HealthsDmg2 : MonoBehaviour
         {
             currentHP--;
             gm.SetHealth(currentHP);
-            Debug.Log(currentHP);
 
-            if (currentHP == 0)
+            if (currentHP <= 0)
             {
                 animator.SetInteger(stateID, 4);
                 foreach (CircleCollider2D collider in GetComponents<CircleCollider2D>())

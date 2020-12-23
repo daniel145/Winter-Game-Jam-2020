@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class AtkRecharge2 : MonoBehaviour
 {
-    public Slider slider; 
+    public Slider slider;
 
-    public void SetCD(int cdLength)
+    private void Start()
     {
-        slider.minValue = cdLength;
         slider.value = 0;
     }
 
