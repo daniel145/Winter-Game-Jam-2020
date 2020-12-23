@@ -212,7 +212,7 @@ SpriteRenderer:
   m_Size: {x: 2.91, y: 2.99}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &41137642
@@ -349,6 +349,7 @@ MonoBehaviour:
   animator: {fileID: 100956907}
   attackCD: 0
   cdLength: 10
+  direction: -1
   atkRecharge: {fileID: 785899806}
   healthsDmg: {fileID: 100956904}
   sackAttack: {fileID: 435840437}
@@ -749,6 +750,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 770345357}
+  enemy: {fileID: 0}
+  movement: {fileID: 0}
+  healthsDmg: {fileID: 0}
 --- !u!4 &435840438
 Transform:
   m_ObjectHideFlags: 0
@@ -1202,7 +1206,7 @@ SpriteRenderer:
   m_Size: {x: 2.91, y: 2.99}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1606407567
@@ -1229,6 +1233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827659103}
   - component: {fileID: 1827659102}
+  - component: {fileID: 1827659104}
   - component: {fileID: 1827659101}
   m_Layer: 0
   m_Name: Test object (4)
@@ -1327,6 +1332,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1827659104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827659100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f6c4a769a88ee41814a3318e85bab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletObject: {fileID: 0}
+  health: 3
+  shooting_distance: 12
+  move_speed: 1
+  time_between_bullets: 1
+  min_distance_from_player: 3
+  canBeKnockedBack: 1
+  knockback_distance: 300
+  knockback_speed: 2
+  melee_multiplier: 3
+  leap_distance: 225
+  honing_bullet_lifespan: 1500
+  attackType: 3
 --- !u!1 &2005380593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1368,7 @@ GameObject:
   - component: {fileID: 2005380596}
   - component: {fileID: 2005380595}
   - component: {fileID: 2005380594}
+  - component: {fileID: 2005380597}
   m_Layer: 0
   m_Name: Test object (6)
   m_TagString: Enemy
@@ -1435,3 +1466,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2005380597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005380593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f6c4a769a88ee41814a3318e85bab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletObject: {fileID: 0}
+  health: 3
+  shooting_distance: 12
+  move_speed: 1
+  time_between_bullets: 1
+  min_distance_from_player: 3
+  canBeKnockedBack: 1
+  knockback_distance: 300
+  knockback_speed: 2
+  melee_multiplier: 3
+  leap_distance: 225
+  honing_bullet_lifespan: 1500
+  attackType: 0

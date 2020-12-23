@@ -6,7 +6,7 @@ public class healthsDmg : MonoBehaviour
 {
     public int fullHealth = 20; //daniel has health ui
     public int currentHP;
-    public float presentCount;
+    public int presentCount;
     private float hitProtect; 
     public Animator animator; 
 

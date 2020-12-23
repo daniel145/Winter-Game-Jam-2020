@@ -11,6 +11,7 @@ public class movement : MonoBehaviour
     bool attacking;
     public float attackCD;
     public float cdLength = 10;
+    public float direction = -1;
 
     public atkRecharge atkRecharge;
     public healthsDmg healthsDmg;
@@ -34,10 +35,12 @@ public class movement : MonoBehaviour
         //to keep direction for animating, probably could be better but :O 
         if (moveInput.x > 0)
         {
+            direction = 1;
             animator.SetFloat("Direction", 1);
         }
         else if (moveInput.x < 0)
         {
+            direction = -1;
             animator.SetFloat("Direction", -1);
         }
        

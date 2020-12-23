@@ -836,6 +836,7 @@ MonoBehaviour:
   animator: {fileID: 718690317}
   attackCD: 0
   cdLength: 10
+  direction: -1
   atkRecharge: {fileID: 939692656}
   healthsDmg: {fileID: 718690313}
   sackAttack: {fileID: 1771240290}
@@ -1058,7 +1059,7 @@ SpriteRenderer:
   m_Size: {x: 2.91, y: 2.99}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1539847604
@@ -1121,6 +1122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 141547176}
+  enemy: {fileID: 0}
+  movement: {fileID: 718690318}
+  healthsDmg: {fileID: 0}
 --- !u!58 &1771240291
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1318,12 +1322,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 85ccdd2d5f594774c8b96962f43c9f5c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bcf241c9ffa162a42b6d70656db32e4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.91, y: 2.99}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1337,7 +1341,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106515050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.108, y: -1.189, z: -0.3847656}
+  m_LocalPosition: {x: -4.66, y: -1.4, z: -0.3847656}
   m_LocalScale: {x: 0.7872641, y: 0.7814062, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1360,8 +1364,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.91, y: 2.99}
-    newSize: {x: 2.91, y: 2.99}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
