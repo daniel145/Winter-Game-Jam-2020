@@ -53,6 +53,8 @@ public class Movement2 : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
+        //rb.AddForce(moveVelocity * Time.deltaTime);
+        //transform.position += new Vector3(moveVelocity.x, moveVelocity.y, 0) * Time.deltaTime;
 
         attacking = Input.GetKeyDown(KeyCode.Space);
        //to react when the button is pushed

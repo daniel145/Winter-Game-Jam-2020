@@ -6,7 +6,7 @@ public class HealthsDmg2 : MonoBehaviour
 {
     public int fullHealth = 9; //daniel has health ui
     public int currentHP;
-    public float protectionLength = 1.5f;
+    public float protectionLength = 0.5f;
 
     public Animator animator;
     public GameManager gm;
@@ -43,8 +43,21 @@ public class HealthsDmg2 : MonoBehaviour
         {
             currentHP--;
             gm.SetHealth(currentHP);
-            hitProtect = 2;
-            movement.StopMovement(0.4f);
+            Debug.Log(currentHP);
+
+            if (currentHP == 0)
+            {
+                animator.SetInteger(stateID, 4);
+                foreach (CircleCollider2D collider in GetComponents<CircleCollider2D>())
+                    collider.enabled = false;
+                GetComponent<Movement2>().enabled = false;
+                this.enabled = false;
+                return;
+            }
+
+            gm.audioManager.Play("playerHit");
+            hitProtect = 0.5f;
+            movement.StopMovement(0.3f);
             movement.SetRotation(other.transform.position.x - transform.position.x > 0);
             animator.SetInteger(stateID, 3);
             hitProtect = protectionLength;

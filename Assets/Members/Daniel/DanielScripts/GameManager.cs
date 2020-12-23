@@ -264,7 +264,7 @@ public class GameManager : MonoBehaviour
         //Time.fixedDeltaTime = Time.timeScale * 0.2f;
         followPlayer = false;
         StartCoroutine(CameraPan(0.05f, 0.2f, player.transform, 2, true));
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.75f);
 
         Time.timeScale = 1f;
         followPlayer = true;

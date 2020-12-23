@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 4199541212683194013}
   - component: {fileID: 4199541212683194012}
   - component: {fileID: 748339067735830150}
+  - component: {fileID: 198459650330603211}
   - component: {fileID: 4199541212683194014}
   - component: {fileID: 4199541212683194009}
   m_Layer: 0
@@ -183,7 +184,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -202,6 +203,22 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.35
+--- !u!58 &198459650330603211
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199541212683194008}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -243,7 +260,7 @@ MonoBehaviour:
   protectionLength: 1.5
   animator: {fileID: 4199541214268496529}
   gm: {fileID: 0}
-  movement: {fileID: 0}
+  movement: {fileID: 4199541212683194014}
 --- !u!1 &4199541212814895954
 GameObject:
   m_ObjectHideFlags: 0
