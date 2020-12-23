@@ -135,3 +135,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal: 0
   vertical: 0
+  speed: 4

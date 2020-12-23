@@ -6,7 +6,7 @@ public class Bullet:MonoBehaviour
 {
     public float horizontal; 
     public float vertical; 
-    private const int SPEED = 3;     
+    public int speed = 3;     
     
     /*
     void Start()
@@ -19,8 +19,8 @@ public class Bullet:MonoBehaviour
     void Update()
     {
         //move the bullet forward
-        float delta_x = horizontal * Time.deltaTime * SPEED; 
-        float delta_y = vertical * Time.deltaTime * SPEED; 
+        float delta_x = horizontal * Time.deltaTime * speed; 
+        float delta_y = vertical * Time.deltaTime * speed; 
         this.transform.position = new Vector2(transform.position.x + delta_x, transform.position.y + delta_y);
     }
 

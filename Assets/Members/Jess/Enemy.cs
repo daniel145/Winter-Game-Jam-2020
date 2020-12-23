@@ -13,6 +13,7 @@ public class Enemy:MonoBehaviour
     private bool beingKnockedBack = false; 
     private bool currentlyMeleeAttacking = false; 
     private int animatorID; 
+    private SpriteRenderer spriteRenderer; 
 
     /* Change these to adjust difficulty */
     public int health = 3; 
@@ -33,6 +34,7 @@ public class Enemy:MonoBehaviour
     void Start()
     {
         Player = GameObject.FindWithTag("Player"); 
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
         animator = GetComponentInChildren<Animator>(); 
         animatorID = Animator.StringToHash("State");
         /*
@@ -44,7 +46,10 @@ public class Enemy:MonoBehaviour
     void Update()
     {
         if(health <= 0)
+        {
+            animator.SetInteger(animatorID, 5);
             Destroy(this.gameObject);
+        }
 
         bool within_shooting_distance = Vector2.Distance((Vector2)Player.transform.position, (Vector2)transform.position) <= shooting_distance;
 
@@ -79,7 +84,6 @@ public class Enemy:MonoBehaviour
     }
 
 
-
     //Move in a random direction (up/down/left/right), but don't get too close to the player
     //If player is within attacking distance, move towards the player
     IEnumerator Move()
@@ -107,10 +111,24 @@ public class Enemy:MonoBehaviour
         if(Vector2.Distance((Vector2)Player.transform.position, (Vector2)transform.position) <= shooting_distance) 
         {
             if((h > 0 && delta_x < 0) || (h < 0 && delta_x > 0)) 
+            {
                 delta_x *= -1; 
+                if(dir == 0)
+                    dir = 1; 
+                if(dir == 1)
+                    dir = 0; 
+            }
+                
             
             if((v > 0 && delta_y < 0) || (v < 0 && delta_y > 0))
-                delta_y *= -1;   
+            {
+                delta_y *= -1;  
+                if(dir == 2)
+                    dir = 3; 
+                if(dir == 3)
+                    dir = 2;  
+            }
+                
         } 
 
         //Also prevent the enemy from moving outside the bounds of the game
@@ -119,7 +137,7 @@ public class Enemy:MonoBehaviour
             Debug.Log("Hit edge of player box");
             
             //Reverse direction
-            //Change if time; possible to get stuck in box after a melee attack 
+            //Change if time; possible to get stuck in player box 
             if(dir == 0)
                 dir = 1; 
             else if(dir == 1)
@@ -147,7 +165,8 @@ public class Enemy:MonoBehaviour
         {
             case 0: //right 
                 //Debug.Log("Moving right");
-                animator.SetInteger(animatorID, 7);
+                spriteRenderer.flipX = false; 
+                animator.SetInteger(animatorID, 1);
                 for(int i = 0; i < 150; i++)
                 {
                     
@@ -159,6 +178,7 @@ public class Enemy:MonoBehaviour
 
             case 1: //left
                 //Debug.Log("Moving left");
+                spriteRenderer.flipX = true; 
                 animator.SetInteger(animatorID, 1);
                 for(int i = 0; i < 150; i++)
                 {
@@ -170,11 +190,7 @@ public class Enemy:MonoBehaviour
             
             case 2: //up
                 //Debug.Log("Moving up");
-                if(animator.GetInteger(animatorID) < 6)
-                    animator.SetInteger(animatorID, 1); 
-                else
-                    animator.SetInteger(animatorID, 7);
-
+                animator.SetInteger(animatorID, 1); 
                 for(int i = 0; i < 150; i++)
                 {
                     transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
@@ -184,10 +200,7 @@ public class Enemy:MonoBehaviour
                 break; 
 
             case 3: //down
-                if(animator.GetInteger(animatorID) < 6)
-                    animator.SetInteger(animatorID, 1); 
-                else
-                    animator.SetInteger(animatorID, 7);
+                animator.SetInteger(animatorID, 1); 
                 for(int i = 0; i < 150; i++)
                 {
                     transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
@@ -204,10 +217,10 @@ public class Enemy:MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)  
     {
-        if(other.gameObject.CompareTag("Player")) //tags changed to Player for testing
+        if(other.gameObject.CompareTag("Weapon")) 
             health--; 
 
-        if(health > 0 && other.gameObject.CompareTag("Player") && canBeKnockedBack && !beingKnockedBack) 
+        if(health > 0 && other.gameObject.CompareTag("Weapon") && canBeKnockedBack && !beingKnockedBack) 
         {
             //Debug.Log("Beginning knockback");
             StartCoroutine(getKnockedBack(other.gameObject));
@@ -223,6 +236,7 @@ public class Enemy:MonoBehaviour
         float h = 0; 
         float v = 0; 
         getVectorToPlayer(ref h, ref v, Player.transform.position);
+
 
         GameObject temp = Instantiate(bulletObject, (Vector2)transform.position, Quaternion.identity); 
         Bullet b = temp.GetComponent<Bullet> (); 
@@ -273,20 +287,14 @@ public class Enemy:MonoBehaviour
     {
         currentlyMeleeAttacking = true; 
         Debug.Log("Melee attack!");
+        if(delta_x > 0)
+            spriteRenderer.flipX = false; 
+        else if(delta_x < 0)
+            spriteRenderer.flipX = true; 
+        animator.SetInteger(animatorID, 3);
         //Leaps at the player 
         for(int i = 0; i < leap_distance; i++)
         {
-            if(delta_x > 0)
-                animator.SetInteger(animatorID, 9); 
-            else if(delta_x < 0)
-                animator.SetInteger(animatorID, 3);
-            else //moving straight up/down -> keep current orientation 
-            {
-                if(animator.GetInteger(animatorID) < 6) 
-                    animator.SetInteger(animatorID, 3);
-                else
-                    animator.SetInteger(animatorID, 9);
-            }
             transform.position = new Vector2(transform.position.x + delta_x, transform.position.y + delta_y);
             yield return null; 
         }
@@ -320,22 +328,16 @@ public class Enemy:MonoBehaviour
         float h = 0; 
         float v = 0; 
         getVectorToPlayer(ref h, ref v, g.transform.position); 
-        //Set animation 
+
         if(h > 0) 
-            animator.SetInteger(animatorID, 10); 
+            spriteRenderer.flipX = false; 
         else if (h < 0)
-            animator.SetInteger(animatorID, 4);
-        else
-        {
-            if(animator.GetInteger(animatorID) < 6)
-                animator.SetInteger(animatorID, 4);
-            else
-                animator.SetInteger(animatorID, 10);
-        }
+            spriteRenderer.flipX = true; 
+        animator.SetInteger(animatorID, 4);
+
         //Move the enemy 
         for(int i = 0; i < knockback_distance; i++)
         {
-            
             transform.position = new Vector2(transform.position.x - (h * Time.deltaTime * knockback_speed), transform.position.y - (v * Time.deltaTime * knockback_speed));
             yield return null; 
         }
@@ -347,19 +349,13 @@ public class Enemy:MonoBehaviour
         float h = 0;
         float v = 0; 
         getVectorToPlayer(ref h, ref v, Player.transform.position);
-
-        //Setting animations 
+ 
         if(h > 0) 
-            animator.SetInteger(animatorID, 9); 
+            spriteRenderer.flipX = false; 
         else if (h < 0)
-            animator.SetInteger(animatorID, 3);
-        else
-        {
-            if(animator.GetInteger(animatorID) < 6)
-                animator.SetInteger(animatorID, 3);
-            else
-                animator.SetInteger(animatorID, 9);
-        }
+            spriteRenderer.flipX = true; 
+        
+        animator.SetInteger(animatorID, 3);
 
     }
 
