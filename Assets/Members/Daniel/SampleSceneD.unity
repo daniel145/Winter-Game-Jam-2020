@@ -524,6 +524,18 @@ MonoBehaviour:
     loop: 0
     playOnAwake: 0
     source: {fileID: 0}
+  - name: chomp
+    clip: {fileID: 8300000, guid: f5d3d157860ae471190e60403c43b92b, type: 3}
+    volume: 0.7
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: powerup
+    clip: {fileID: 8300000, guid: 40975e0f561cf48558cc4653aa69dd89, type: 3}
+    volume: 0.7
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
   instance: {fileID: 0}
 --- !u!1 &508715853
 GameObject:
@@ -1097,6 +1109,11 @@ MonoBehaviour:
     type: 3}
   enemyPrefab:
   - {fileID: 6669173177312594763, guid: 15ecdaaa0860546c285b72d23a4ed96d, type: 3}
+  presentPrefab:
+  - {fileID: 2475615406612822399, guid: 923ada372678a45a788555733b6287cc, type: 3}
+  - {fileID: 1683250164968006389, guid: be7deaff4f58a45238b7317a546dc43b, type: 3}
+  - {fileID: 5501252922732198100, guid: d172c9babadbf480faf18b93f268d488, type: 3}
+  - {fileID: 5160287318874459791, guid: 3db006a1205ea487bb46b19e5cd89a71, type: 3}
   pauseText: {fileID: 1149833490}
   textBox: {fileID: 325693405}
   holidayCard: {fileID: 583203495}
@@ -1117,6 +1134,7 @@ MonoBehaviour:
     type: 3}
   megaExplosionAnimation: {fileID: 1701054705381834628, guid: ee668072a34f64495a502404b03898a0,
     type: 3}
+  tilemap: {fileID: 0}
 --- !u!1 &829899013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,14 +2328,13 @@ GameObject:
   - component: {fileID: 1786886821}
   - component: {fileID: 1786886822}
   - component: {fileID: 1786886825}
-  - component: {fileID: 1786886824}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!96 &1786886821
 TrailRenderer:
   serializedVersion: 2
@@ -2479,18 +2496,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1786886824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786886820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e582b18b43d14c05a103574962f4d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1786886825
 BoxCollider2D:
   m_ObjectHideFlags: 0

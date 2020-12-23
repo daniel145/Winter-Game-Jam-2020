@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Levels))]
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     //Public Variables
     public GameObject playerPrefab;
     public GameObject[] enemyPrefab;
+    public GameObject[] presentPrefab;
     public GameObject pauseText;
     public GameObject textBox;
     public GameObject holidayCard;
@@ -17,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject summonAnimation;
     public GameObject explosionAnimation;
     public GameObject megaExplosionAnimation;
+    public Tilemap tilemap;
 
     private Transform player;
     private GameObject enemies;
@@ -32,18 +35,23 @@ public class GameManager : MonoBehaviour
     // Parameters
     private int MAX_HEALTH = 9;
     private int MAX_STAGE = 2;
+    private int STAGE_WIDTH = 10;
+    private int STAGE_HEIGHT = 10;
+    private int MIN_TIME = 10;
+    private int MAX_TIME = 20;
 
     // Saves components accessed regularly
     void Start()
     {
-        player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).transform;
         audioManager.Play("bgm");
         levelData = GetComponent<Levels>();
         mainCamera = Camera.main;
-
         pauseText.SetActive(false);
         holidayCard.SetActive(false);
+
+        player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).transform;
         NextLevel();
+        GenerateItems(MIN_TIME, MAX_TIME);
     }
 
     // Currently used for testing purposes
@@ -168,9 +176,10 @@ public class GameManager : MonoBehaviour
     }
 
     // Randomly generate items for the player to collect
-    private void GenerateItems()
+    private void GenerateItems(int min, int max)
     {
-        // TODO: Create items randomly around the stage???
+        int time = Random.Range(min, max + 1);
+        StartCoroutine(SpawnItem(time));
     }
 
     // Displays the textbox on screen
@@ -233,7 +242,7 @@ public class GameManager : MonoBehaviour
         //Time.fixedDeltaTime = Time.timeScale * 0.2f;
         followPlayer = false;
         StartCoroutine(CameraPan(0.05f, 0.2f, enemy, 2));
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.3f);
 
         Time.timeScale = 1f;
         followPlayer = true;
@@ -260,7 +269,7 @@ public class GameManager : MonoBehaviour
             }
             else if (noExplosion)
             {
-                mainCamera.transform.position = new Vector3(4, 0, -10);
+                mainCamera.transform.position = newPosition;
                 mainCamera.orthographicSize = newSize;
                 noExplosion = false;
                 audioManager.Play("megaExplosion");
@@ -288,5 +297,36 @@ public class GameManager : MonoBehaviour
         audioManager.Play("zombieDeath");
         Instantiate(summonAnimation, enemy.position, Quaternion.identity);
         Destroy(enemy.gameObject);
+    }
+
+    private IEnumerator SpawnItem(int time)
+    {
+        float elapsed = 0;
+        float x, y;
+        int type = Random.Range(0, presentPrefab.Length);
+        while(true)
+        {
+            x = Random.Range(-STAGE_WIDTH, STAGE_WIDTH);
+            y = Random.Range(-STAGE_HEIGHT, STAGE_HEIGHT);
+            //TileBase tilebase = tilemap.GetTile(tilemap.WorldToCell(new Vector3(x, y, 0)));
+            TileBase tilebase = null;
+            if (tilebase == null)
+                break;
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+
+        while (true)
+        {
+            if (elapsed > time)
+            {
+                Instantiate(presentPrefab[type], new Vector3(x, y, 0), Quaternion.identity);
+                break;
+            }
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+
+        GenerateItems(MIN_TIME, MAX_TIME);
     }
 }

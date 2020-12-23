@@ -1,14 +1,20 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class Item : MonoBehaviour
 {
+    public float timeLimit = 30f;
+    public float dampen = 4f;
+    [HideInInspector]
+    public AudioManager audioManager;
+    private Vector3 originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Collect", 5f);
+        originalPosition = transform.position;
+        StartCoroutine(Float());
     }
 
     // Update is called once per frame
@@ -20,6 +26,10 @@ public class Item : MonoBehaviour
     public void Collect()
     {
         GetComponent<Collider2D>().enabled = false;
+        if (CompareTag("Food"))
+            audioManager.Play("chomp");
+        else
+            audioManager.Play("powerup");
         StartCoroutine(Spin(1.2f, 825f));
     }
 
@@ -37,5 +47,24 @@ public class Item : MonoBehaviour
             yield return null;
         }
         Destroy(gameObject);
+    }
+
+    // Makes the item bob up and down
+    // Also destorys the object after a certain time limit
+    private IEnumerator Float()
+    {
+        float t = 0;
+        while (true)
+        {
+            transform.position = originalPosition + new Vector3(0, Mathf.Sin(t) / dampen, 0);
+            yield return null;
+            t += Time.deltaTime;
+
+            if (t > timeLimit)
+            {
+                StartCoroutine(Spin(0.6f, 375));
+                break;
+            }
+        }
     }
 }
