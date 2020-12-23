@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Enemy:MonoBehaviour
 {
-    
     public GameObject bulletObject; //a prefab 
     private GameObject Player; 
-    Animator animator; 
+    private Animator animator; 
     private float time_elapsed = 0; 
     private bool currentlyMoving = false; 
     private bool beingKnockedBack = false; 

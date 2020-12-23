@@ -8,7 +8,8 @@ public class Enemy2:MonoBehaviour
     public GameManager gm;
     public GameObject bulletObject; //a prefab 
     private GameObject Player; 
-    Animator animator; 
+    private Animator animator; 
+    private Rigidbody2D rb; 
     private float time_elapsed = 0; 
     private bool currentlyMoving = false; 
     private bool beingKnockedBack = false; 
@@ -21,7 +22,7 @@ public class Enemy2:MonoBehaviour
     public float shooting_distance = 12.0f; //How close the player has to be before the enemy starts shooting and moving toward it 
     public float move_speed = 1.0f; 
     public float time_between_bullets = 1.0f;
-    public float min_distance_from_player = 3.0f; 
+    public float min_distance_from_player = 1.0f; 
     public bool canBeKnockedBack = true; 
     public float knockback_distance = 300f; 
     public float knockback_speed = 2.0f; 
@@ -37,6 +38,7 @@ public class Enemy2:MonoBehaviour
     {
         Player = GameObject.FindWithTag("Player"); 
         spriteRenderer = GetComponentInChildren<SpriteRenderer>(); 
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>(); 
         animatorID = Animator.StringToHash("State");
         /*
@@ -175,8 +177,8 @@ public class Enemy2:MonoBehaviour
                 animator.SetInteger(animatorID, 1);
                 for(int i = 0; i < 150; i++)
                 {
-                    
-                    transform.position = new Vector2(transform.position.x + delta_x, transform.position.y);
+                    Vector2 v = new Vector2(transform.position.x + delta_x, transform.position.y);
+                    rb.MovePosition(v);
                     yield return null; 
                 }
                     
@@ -189,7 +191,8 @@ public class Enemy2:MonoBehaviour
                 animator.SetInteger(animatorID, 1);
                 for(int i = 0; i < 150; i++)
                 {
-                    transform.position = new Vector2(transform.position.x + delta_x, transform.position.y);
+                    Vector2 v = new Vector2(transform.position.x + delta_x, transform.position.y);
+                    rb.MovePosition(v);
                     yield return null; 
                 }
                     
@@ -200,7 +203,8 @@ public class Enemy2:MonoBehaviour
                 animator.SetInteger(animatorID, 1); 
                 for(int i = 0; i < 150; i++)
                 {
-                    transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
+                    Vector2 v = new Vector2(transform.position.x, transform.position.y + delta_y);
+                    rb.MovePosition(v);
                     yield return null; 
                 }
                     
@@ -210,7 +214,8 @@ public class Enemy2:MonoBehaviour
                 animator.SetInteger(animatorID, 1); 
                 for(int i = 0; i < 150; i++)
                 {
-                    transform.position = new Vector2(transform.position.x, transform.position.y + delta_y);
+                    Vector2 v = new Vector2(transform.position.x, transform.position.y + delta_y);
+                    rb.MovePosition(v);
                     yield return null; 
                 }
 
@@ -295,14 +300,17 @@ public class Enemy2:MonoBehaviour
         currentlyMeleeAttacking = true; 
         Debug.Log("Melee attack!");
         if(delta_x > 0)
-            spriteRenderer.flipX = false; 
+            //spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.identity; 
         else if(delta_x < 0)
-            spriteRenderer.flipX = true; 
+            //spriteRenderer.flipX = true; 
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         animator.SetInteger(animatorID, 3);
         //Leaps at the player 
         for(int i = 0; i < leap_distance; i++)
         {
-            transform.position = new Vector2(transform.position.x + delta_x, transform.position.y + delta_y);
+            Vector2 v = new Vector2(transform.position.x + delta_x, transform.position.y + delta_y);
+            rb.MovePosition(v);
             yield return null; 
         }
         currentlyMeleeAttacking = false; 
@@ -337,15 +345,18 @@ public class Enemy2:MonoBehaviour
         getVectorToPlayer(ref h, ref v, g.transform.position); 
 
         if(h > 0) 
-            spriteRenderer.flipX = false; 
+            //spriteRenderer.flipX = false; 
+            transform.rotation = Quaternion.identity;
         else if (h < 0)
-            spriteRenderer.flipX = true; 
+            //spriteRenderer.flipX = true; 
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         animator.SetInteger(animatorID, 4);
 
         //Move the enemy 
         for(int i = 0; i < knockback_distance; i++)
         {
-            transform.position = new Vector2(transform.position.x - (h * Time.deltaTime * knockback_speed), transform.position.y - (v * Time.deltaTime * knockback_speed));
+            Vector2 vec = new Vector2(transform.position.x - (h * Time.deltaTime * knockback_speed), transform.position.y - (v * Time.deltaTime * knockback_speed));
+            rb.MovePosition(vec);
             yield return null; 
         }
         beingKnockedBack = false; 
@@ -358,9 +369,11 @@ public class Enemy2:MonoBehaviour
         getVectorToPlayer(ref h, ref v, Player.transform.position);
  
         if(h > 0) 
-            spriteRenderer.flipX = false; 
+            //spriteRenderer.flipX = false; 
+            transform.rotation = Quaternion.identity;
         else if (h < 0)
-            spriteRenderer.flipX = true; 
+            //spriteRenderer.flipX = true; 
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         
         animator.SetInteger(animatorID, 3);
 
