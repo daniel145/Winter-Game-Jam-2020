@@ -26,6 +26,7 @@ public class Enemy:MonoBehaviour
     public float knockback_speed = 2.0f; 
     public float melee_multiplier = 3.0f; //How much faster the enemy should move when chasing the player
     public int leap_distance = 225; //How far the enemy jumps during melee attacks -- for reference, one standard step is 150 
+    public int honing_bullet_lifespan = 1500; 
 
     public enum Attack{Standard, Honing, Radial, Melee};
     public Attack attackType = Attack.Standard; 
@@ -115,7 +116,7 @@ public class Enemy:MonoBehaviour
                 delta_x *= -1; 
                 if(dir == 0)
                     dir = 1; 
-                if(dir == 1)
+                else if(dir == 1)
                     dir = 0; 
             }
                 
@@ -125,7 +126,7 @@ public class Enemy:MonoBehaviour
                 delta_y *= -1;  
                 if(dir == 2)
                     dir = 3; 
-                if(dir == 3)
+                else if(dir == 3)
                     dir = 2;  
             }
                 
@@ -258,7 +259,7 @@ public class Enemy:MonoBehaviour
         b.vertical = v; 
 
         //Bullet changes path to follow the player for x frames -- maybe change 
-        for(int i = 0; i < 1500; i++)
+        for(int i = 0; i < honing_bullet_lifespan; i++)
         {
             getVectorToPlayer(ref h, ref v, Player.transform.position); 
             b.horizontal = h; 

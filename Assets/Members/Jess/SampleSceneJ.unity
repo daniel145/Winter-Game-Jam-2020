@@ -509,7 +509,8 @@ MonoBehaviour:
   knockback_speed: 3
   melee_multiplier: 3
   leap_distance: 225
-  attackType: 0
+  honing_bullet_lifespan: 3000
+  attackType: 1
 --- !u!114 &6463046500101836500
 MonoBehaviour:
   m_ObjectHideFlags: 0
