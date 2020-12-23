@@ -6,10 +6,10 @@ public class Bullet:MonoBehaviour
 {
     public float horizontal; 
     public float vertical; 
-    const int SPEED = 3; 
-    //public GameObject Player;    
+    public int speed = 3;     
     
-    /*void Start()
+    /*
+    void Start()
     { 
         //for testing purposes
         horizontal = 1; 
@@ -19,16 +19,19 @@ public class Bullet:MonoBehaviour
     void Update()
     {
         //move the bullet forward
-        float delta_x = horizontal * Time.deltaTime * SPEED; 
-        float delta_y = vertical * Time.deltaTime * SPEED; 
+        float delta_x = horizontal * Time.deltaTime * speed; 
+        float delta_y = vertical * Time.deltaTime * speed; 
         this.transform.position = new Vector2(transform.position.x + delta_x, transform.position.y + delta_y);
     }
 
     //todo: if it hits the player, decrease player health 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("collision!");
-        Destroy(this.gameObject);
+        if(other.gameObject.CompareTag("Player"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     //Destroy the bullet if it flies off screen 

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-
+    [HideInInspector]
     public AudioManager instance;
 
     private float musicMultiplier = 0.75f;
