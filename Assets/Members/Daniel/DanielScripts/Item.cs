@@ -19,9 +19,9 @@ public class Item : MonoBehaviour
 
         switch(transform.name)
         {
-            case "CandyPrefab(clone)": health = 1; break;
-            case "GinBrePrefab(clone)": health = 2; break;
-            case "TurkeyPrefab(clone)": health = 3; break;
+            case "CandyPrefab(Clone)": health = 1; break;
+            case "GinBrePrefab(Clone)": health = 2; break;
+            case "TurkeyPrefab(Clone)": health = 3; break;
             default: health = 0; break;
         }
     }
@@ -37,14 +37,17 @@ public class Item : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Collect();
-            // Tell the player how much health to recover
+            if (health != 0)
+                collision.gameObject.GetComponent<HealthsDmg2>().AddHealth(health);
+            else
+                collision.gameObject.GetComponentInChildren<SackAttack2>().AddPresent();
         }
     }
 
     public void Collect()
     {
         GetComponent<Collider2D>().enabled = false;
-        if (CompareTag("Untagged"))
+        if (CompareTag("Food"))
             audioManager.Play("chomp");
         else
             audioManager.Play("powerup");

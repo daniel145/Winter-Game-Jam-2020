@@ -199,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665025861}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.252, y: 0.376, z: -0.70996094}
+  m_LocalPosition: {x: 1.04, y: -2.25, z: -0.70996094}
   m_LocalScale: {x: 0.12811562, y: 0.12811562, z: 0.12811562}
   m_Children: []
   m_Father: {fileID: 0}
@@ -233,7 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b968c192908ac84fa2570ee1ad64819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
 --- !u!50 &665025866
 Rigidbody2D:
   serializedVersion: 4
@@ -243,6 +242,60 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665025861}
   m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!1 &911175393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 592114086890584036, guid: 2592b8e77f5927544800d617340bbe2e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5158318736297779741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &911175394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911175393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd6dbbc7db9649a3a76f8851c9feb9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gm: {fileID: 0}
+  bulletObject: {fileID: 6637817641361443689, guid: 318b0abb99b52434a9ea00a8c2c91f91,
+    type: 3}
+  health: 3
+  shooting_distance: 12
+  move_speed: 1
+  time_between_bullets: 1
+  min_distance_from_player: 1
+  canBeKnockedBack: 1
+  knockback_distance: 300
+  knockback_speed: 2
+  melee_multiplier: 3
+  leap_distance: 225
+  honing_bullet_lifespan: 1500
+  attackType: 0
+--- !u!50 &911175398
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911175393}
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -349,6 +402,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 592114086890584039, guid: 2592b8e77f5927544800d617340bbe2e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592114086890584039, guid: 2592b8e77f5927544800d617340bbe2e,
+        type: 3}
+      propertyPath: attackType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 592114086890584039, guid: 2592b8e77f5927544800d617340bbe2e,
+        type: 3}
+      propertyPath: honing_bullet_lifespan
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 2967175767544429414, guid: 2592b8e77f5927544800d617340bbe2e,
         type: 3}

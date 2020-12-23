@@ -6,11 +6,7 @@ TagManager:
   tags:
   - Weapon
   - Enemy
-<<<<<<< Updated upstream
-=======
   - Food
-  - Present
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
