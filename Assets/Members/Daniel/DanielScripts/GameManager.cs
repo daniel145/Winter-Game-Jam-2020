@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject[] enemyPrefab;
     public GameObject[] presentPrefab;
+    public GameObject pauseBackground;
     public GameObject pauseText;
     public GameObject textBox;
     public GameObject holidayCard;
@@ -19,7 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject summonAnimation;
     public GameObject explosionAnimation;
     public GameObject megaExplosionAnimation;
-    public Tilemap tilemap;
+    public Tilemap tilemapColliders;
+    public Tilemap tilemapExterior;
     public Sprite winSprite;
     public Sprite loseSprite;
 
@@ -31,16 +33,18 @@ public class GameManager : MonoBehaviour
     private bool paused = false;
     private bool coroutineActive = false;
     private bool followPlayer = true;
-    private int stageNum = 0;
+    private int stageNum = 7;
     private int health;
 
     // Parameters
     private int MAX_HEALTH = 9;
-    private int MAX_STAGE = 2;
-    private int STAGE_WIDTH = 10;
-    private int STAGE_HEIGHT = 10;
-    private int MIN_TIME = 10;
-    private int MAX_TIME = 20;
+    private int MAX_STAGE = 8;
+    private int MIN_STAGE_X = -6;
+    private int MAX_STAGE_X = 25;
+    private int MIN_STAGE_Y = -11;
+    private int MAX_STAGE_Y = 5;
+    private int MIN_TIME = 5;
+    private int MAX_TIME = 12;
 
     // Saves components accessed regularly
     void Start()
@@ -49,6 +53,7 @@ public class GameManager : MonoBehaviour
         levelData = GetComponent<Levels>();
         mainCamera = Camera.main;
         pauseText.SetActive(false);
+        pauseBackground.SetActive(false);
         holidayCard.SetActive(false);
 
         player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity).transform;
@@ -68,7 +73,7 @@ public class GameManager : MonoBehaviour
                 StopAllObjects();
         }
         else if (Input.GetKeyDown(KeyCode.A))
-            StartCoroutine(DisplayBox(2.5f, "Level 1"));
+            audioManager.Play("playerSpawn");
         else if (Input.GetKeyDown(KeyCode.B))
             SetHealth(Random.Range(1, 9));
         else if (Input.GetKeyDown(KeyCode.C))
@@ -78,7 +83,7 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.E))
             NextLevel();
         else if (Input.GetKeyDown(KeyCode.F))
-            audioManager.Play("bell");
+            audioManager.Play("playerDeath");
         else if (Input.GetKeyDown(KeyCode.G))
             audioManager.Play("zombieDeath");
         else if (Input.GetKeyDown(KeyCode.H))
@@ -87,6 +92,14 @@ public class GameManager : MonoBehaviour
             audioManager.Play("playerHit");
         else if (Input.GetKeyDown(KeyCode.J))
             EnemyKilled(enemies.transform.GetChild(0));
+        else if (Input.GetKeyDown(KeyCode.K))
+            audioManager.Play("swish");
+        else if (Input.GetKeyDown(KeyCode.L))
+            audioManager.Play("explosion");
+        else if (Input.GetKeyDown(KeyCode.M))
+            audioManager.Play("chomp");
+        else if (Input.GetKeyDown(KeyCode.N))
+            audioManager.Play("powerup");
     }
 
     // Update camera position to follow player
@@ -148,6 +161,7 @@ public class GameManager : MonoBehaviour
         //enemies.SetActive(false);
         paused = false;
         pauseText.SetActive(false);
+        pauseBackground.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -158,6 +172,7 @@ public class GameManager : MonoBehaviour
         //enemies.SetActive(false);
         paused = true;
         pauseText.SetActive(true);
+        pauseBackground.SetActive(true);
         Time.timeScale = 0;
     }
 
@@ -165,13 +180,16 @@ public class GameManager : MonoBehaviour
     // Plays "zombieSpawn" sound
     private void GenerateEnemies(int level)
     {
+        if (enemies != null)
+            Destroy(enemies);
         enemies = new GameObject("Enemies");
         List<(int, Vector2)> data = levelData.GetLevelData(level);
         enemyCount = data.Count;
         for (int i = 0; i < data.Count; i++)
         {
-            Instantiate(summonAnimation, data[i].Item2, Quaternion.identity);
-            GameObject enemy = Instantiate(enemyPrefab[data[i].Item1], data[i].Item2, Quaternion.identity, enemies.transform);
+            Vector2 summonPos = data[i].Item2 + new Vector2(0.5f, 0.5f);
+            Instantiate(summonAnimation, summonPos, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab[data[i].Item1], summonPos, Quaternion.identity, enemies.transform);
             // Assign an ID???
         }
         audioManager.Play("zombieSpawn");
@@ -228,7 +246,7 @@ public class GameManager : MonoBehaviour
         if (result)
         {
             holidayCard.GetComponent<Image>().sprite = winSprite;
-            closingMessage = "Hooray,\n" + "?" + " presents\ndelivered during the\nZombie Apocalypse!";
+            closingMessage = "Hooray! " + "?" + " presents\ndelivered during the\nZombie Apocalypse!";
             audioManager.Play("win");
         }
         else
@@ -311,11 +329,11 @@ public class GameManager : MonoBehaviour
         int type = Random.Range(0, presentPrefab.Length);
         while(true)
         {
-            x = Random.Range(-STAGE_WIDTH, STAGE_WIDTH);
-            y = Random.Range(-STAGE_HEIGHT, STAGE_HEIGHT);
-            //TileBase tilebase = tilemap.GetTile(tilemap.WorldToCell(new Vector3(x, y, 0)));
-            TileBase tilebase = null;
-            if (tilebase == null)
+            x = Random.Range(MIN_STAGE_X, MAX_STAGE_X) + 0.5f;
+            y = Random.Range(MIN_STAGE_Y, MAX_STAGE_Y) + 0.5f;
+            TileBase tilebase1 = tilemapExterior.GetTile(tilemapExterior.WorldToCell(new Vector3(x, y, 0)));
+            TileBase tilebase2 = tilemapColliders.GetTile(tilemapColliders.WorldToCell(new Vector3(x, y, 0)));
+            if (tilebase1 == null && tilebase2 == null)
                 break;
             yield return null;
             elapsed += Time.deltaTime;

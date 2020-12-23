@@ -9,7 +9,7 @@ public class ProjectileAid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.AddComponent<TrailRenderer>();   
+        gameObject.GetComponent<TrailRenderer>().endWidth = 0.01f;
     }
 
     // Update is called once per frame
