@@ -9,12 +9,21 @@ public class Item : MonoBehaviour
     [HideInInspector]
     public AudioManager audioManager;
     private Vector3 originalPosition;
+    private int health;
 
     // Start is called before the first frame update
     void Start()
     {
         originalPosition = transform.position;
         StartCoroutine(Float());
+
+        switch(transform.name)
+        {
+            case "CandyPrefab(clone)": health = 1; break;
+            case "GinBrePrefab(clone)": health = 2; break;
+            case "TurkeyPrefab(clone)": health = 3; break;
+            default: health = 0; break;
+        }
     }
 
     // Update is called once per frame
@@ -23,10 +32,19 @@ public class Item : MonoBehaviour
         
     }
 
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Collect();
+            // Tell the player how much health to recover
+        }
+    }
+
     public void Collect()
     {
         GetComponent<Collider2D>().enabled = false;
-        if (CompareTag("Food"))
+        if (CompareTag("Untagged"))
             audioManager.Play("chomp");
         else
             audioManager.Play("powerup");

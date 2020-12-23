@@ -374,7 +374,8 @@ public class GameManager : MonoBehaviour
         {
             if (elapsed > time)
             {
-                Instantiate(presentPrefab[type], new Vector3(x, y, 0), Quaternion.identity);
+                GameObject item = Instantiate(presentPrefab[type], new Vector3(x, y, 0), Quaternion.identity);
+                item.GetComponent<Item>().audioManager = audioManager;
                 break;
             }
             yield return null;
