@@ -125,8 +125,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4948681929848519467}
   - component: {fileID: 1170260532497601661}
-  - component: {fileID: 3157667142638249339}
   - component: {fileID: 3500585778753497465}
+  - component: {fileID: -8565739549759218855}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -175,32 +175,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &3157667142638249339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4698624056432908786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f6c4a769a88ee41814a3318e85bab9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletObject: {fileID: 6637817641361443689, guid: 318b0abb99b52434a9ea00a8c2c91f91,
-    type: 3}
-  health: 3
-  shooting_distance: 4
-  move_speed: 0.25
-  time_between_bullets: 3
-  min_distance_from_player: 3
-  canBeKnockedBack: 1
-  knockback_distance: 300
-  knockback_speed: 3
-  melee_multiplier: 3
-  leap_distance: 150
-  honing_bullet_lifespan: 3000
-  attackType: 2
 --- !u!50 &3500585778753497465
 Rigidbody2D:
   serializedVersion: 4
@@ -222,3 +196,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-8565739549759218855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4698624056432908786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd6dbbc7db9649a3a76f8851c9feb9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletObject: {fileID: 6637817641361443689, guid: 318b0abb99b52434a9ea00a8c2c91f91,
+    type: 3}
+  health: 3
+  shooting_distance: 4
+  move_speed: 1
+  time_between_bullets: 4
+  min_distance_from_player: 3
+  canBeKnockedBack: 1
+  knockback_distance: 300
+  knockback_speed: 2
+  melee_multiplier: 3
+  leap_distance: 100
+  honing_bullet_lifespan: 1500
+  attackType: 2

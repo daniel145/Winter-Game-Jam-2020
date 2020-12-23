@@ -5,6 +5,7 @@ using UnityEngine;
 public class ProjectileAid : MonoBehaviour
 {
     public GameObject explosionPrefab;
+    private bool running = true;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,12 @@ public class ProjectileAid : MonoBehaviour
 
     private void OnDestroy()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        if (running)
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+    }
+
+    private void OnApplicationQuit()
+    {
+        running = false;
     }
 }

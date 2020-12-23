@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6942424396884084422}
   - component: {fileID: 8797632725369526749}
-  - component: {fileID: 4029174360220421814}
   - component: {fileID: 9081409415097960179}
+  - component: {fileID: 5135310031983837454}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -60,32 +60,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1.5}
   m_EdgeRadius: 0
---- !u!114 &4029174360220421814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5583883053618628434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f6c4a769a88ee41814a3318e85bab9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletObject: {fileID: 6637817641361443689, guid: 318b0abb99b52434a9ea00a8c2c91f91,
-    type: 3}
-  health: 3
-  shooting_distance: 3
-  move_speed: 0.15
-  time_between_bullets: 6
-  min_distance_from_player: 3
-  canBeKnockedBack: 1
-  knockback_distance: 300
-  knockback_speed: 3
-  melee_multiplier: 3
-  leap_distance: 100
-  honing_bullet_lifespan: 3000
-  attackType: 1
 --- !u!50 &9081409415097960179
 Rigidbody2D:
   serializedVersion: 4
@@ -107,6 +81,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &5135310031983837454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5583883053618628434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccd6dbbc7db9649a3a76f8851c9feb9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletObject: {fileID: 6637817641361443689, guid: 318b0abb99b52434a9ea00a8c2c91f91,
+    type: 3}
+  health: 3
+  shooting_distance: 6
+  move_speed: 0.5
+  time_between_bullets: 4
+  min_distance_from_player: 3
+  canBeKnockedBack: 1
+  knockback_distance: 300
+  knockback_speed: 2
+  melee_multiplier: 3
+  leap_distance: 150
+  honing_bullet_lifespan: 1500
+  attackType: 1
 --- !u!1 &7933273973339854026
 GameObject:
   m_ObjectHideFlags: 0

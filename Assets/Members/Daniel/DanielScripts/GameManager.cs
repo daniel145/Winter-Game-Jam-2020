@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     private bool paused = false;
     private bool coroutineActive = false;
     private bool followPlayer = true;
-    private int stageNum = 7;
+    private int stageNum = 0;
     private int health;
 
     // Parameters
@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
             audioManager.Play("chomp");
         else if (Input.GetKeyDown(KeyCode.N))
             audioManager.Play("powerup");
+        else if (Input.GetKeyDown(KeyCode.O))
+            SetHealth(0);
     }
 
     // Update camera position to follow player
@@ -112,7 +114,7 @@ public class GameManager : MonoBehaviour
     // Change health UI
     public void SetHealth(int hp)
     {
-        if (hp == health)
+        if (hp == health && hp != 0)
             return;
         else if (hp > MAX_HEALTH)
             hp = MAX_HEALTH;
@@ -122,6 +124,9 @@ public class GameManager : MonoBehaviour
                 hearts[i].ChangeVisibility(false);
             else
                 hearts[i].ChangeVisibility(true);
+
+        if (hp == 0)
+            StartCoroutine(SlowMotionDeath());
     }
 
     // Called when an enemy's HP hits 0.
@@ -190,6 +195,7 @@ public class GameManager : MonoBehaviour
             Vector2 summonPos = data[i].Item2 + new Vector2(0.5f, 0.5f);
             Instantiate(summonAnimation, summonPos, Quaternion.identity);
             GameObject enemy = Instantiate(enemyPrefab[data[i].Item1], summonPos, Quaternion.identity, enemies.transform);
+            enemy.GetComponent<Enemy2>().gm = this;
             // Assign an ID???
         }
         audioManager.Play("zombieSpawn");
@@ -272,15 +278,29 @@ public class GameManager : MonoBehaviour
         NextLevel();
     }
 
+    // Enables a slow motion death when player defeated
+    private IEnumerator SlowMotionDeath()
+    {
+        Time.timeScale = 0.1f;
+        //Time.fixedDeltaTime = Time.timeScale * 0.2f;
+        followPlayer = false;
+        StartCoroutine(CameraPan(0.05f, 0.2f, player.transform, 2, true));
+        yield return new WaitForSeconds(1f);
+
+        Time.timeScale = 1f;
+        followPlayer = true;
+        GameOver(false);
+    }
+
     // Moves the Camera, holds the current position, then moves to the player's position
-    private IEnumerator CameraPan(float moveTime, float stayTime, Transform newTransform, float newSize)
+    private IEnumerator CameraPan(float moveTime, float stayTime, Transform newTransform, float newSize, bool playerDeath = false)
     {
         float time = 0;
         float deadline = moveTime * 2 + stayTime;
         Vector3 oldPosition = mainCamera.transform.position;
         Vector3 newPosition = new Vector3(newTransform.position.x, newTransform.position.y, oldPosition.z);
         float oldSize = mainCamera.orthographicSize;
-        bool noExplosion = true;
+        bool pending = true;
 
         while (time < deadline)
         {
@@ -290,15 +310,23 @@ public class GameManager : MonoBehaviour
                 mainCamera.transform.position = Vector3.Lerp(oldPosition, newPosition, t);
                 mainCamera.orthographicSize = oldSize + (newSize - oldSize) * t;
             }
-            else if (noExplosion)
+            else if (pending)
             {
                 mainCamera.transform.position = newPosition;
                 mainCamera.orthographicSize = newSize;
-                noExplosion = false;
-                audioManager.Play("megaExplosion");
-                audioManager.Play("zombieSpecialDeath");
-                Instantiate(explosionAnimation, newPosition, Quaternion.identity);
-                Destroy(newTransform.gameObject);
+                pending = false;
+                if (playerDeath)
+                {
+                    audioManager.Play("playerDeath");
+                    break;
+                }
+                else
+                {
+                    audioManager.Play("megaExplosion");
+                    audioManager.Play("zombieSpecialDeath");
+                    Instantiate(explosionAnimation, newPosition, Quaternion.identity);
+                    Destroy(newTransform.gameObject);
+                }
             }
             else if (time > deadline - moveTime)
             {
@@ -311,8 +339,11 @@ public class GameManager : MonoBehaviour
             time += Time.deltaTime;
         }
 
-        mainCamera.orthographicSize = oldSize;
-        mainCamera.transform.position = new Vector3(player.position.x, player.position.y, -10);
+        if (!playerDeath)
+        {
+            mainCamera.orthographicSize = oldSize;
+            mainCamera.transform.position = new Vector3(player.position.x, player.position.y, mainCamera.transform.position.z);
+        }
     }
 
     private void DeathAnimation(Transform enemy)
