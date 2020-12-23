@@ -10,7 +10,7 @@ public class Movement2 : MonoBehaviour
     private Vector2 moveVelocity;
     bool attacking;
     public float attackCD;
-    public float cdLength = 1.1f;
+    public float cdLength = 0.5f;
 
     private bool facingRight;
     private int animationID;
@@ -39,6 +39,7 @@ public class Movement2 : MonoBehaviour
             animator.SetInteger(animationID, 2);
             attackCD = cdLength;
             StartCoroutine(Cooldown());
+            still = true;
             return;
         }
 
@@ -87,5 +88,6 @@ public class Movement2 : MonoBehaviour
             atkRecharge.Recharge(attackCD);
         }
         attackCD = 0;
+        still = false;
     }
 }
