@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject explosionAnimation;
     public GameObject megaExplosionAnimation;
     public Tilemap tilemap;
+    public Sprite winSprite;
+    public Sprite loseSprite;
 
     private Transform player;
     private GameObject enemies;
@@ -222,14 +224,17 @@ public class GameManager : MonoBehaviour
     {
         Destroy(enemies);
         string closingMessage;
+        holidayCard.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 200);
         if (result)
         {
-            closingMessage = "You win!";
+            holidayCard.GetComponent<Image>().sprite = winSprite;
+            closingMessage = "Hooray,\n" + "?" + " presents\ndelivered during the\nZombie Apocalypse!";
             audioManager.Play("win");
         }
         else
         {
-            closingMessage = "You lose";
+            holidayCard.GetComponent<Image>().sprite = loseSprite;
+            closingMessage = "Ho, Ho, oh No\nSanta was eaten\nby zombies!";
             audioManager.Play("lose");
         }
         StartCoroutine(DisplayBox(300, closingMessage));
