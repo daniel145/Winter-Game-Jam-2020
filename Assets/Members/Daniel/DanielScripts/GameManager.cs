@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
     private int MAX_STAGE_X = 25;
     private int MIN_STAGE_Y = -11;
     private int MAX_STAGE_Y = 5;
-    private int MIN_TIME = 5;
-    private int MAX_TIME = 12;
+    private int MIN_TIME = 2;
+    private int MAX_TIME = 8;
 
     // Saves components accessed regularly
     void Start()
@@ -78,14 +78,14 @@ public class GameManager : MonoBehaviour
             else
                 StopAllObjects();
         }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            player.GetComponentInChildren<SackAttack2>().AddPresent();
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            GameOver(true);
-        }
+        //else if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    player.GetComponentInChildren<SackAttack2>().AddPresent();
+        //}
+        //else if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    GameOver(true);
+        //}
     }
 
     // Update camera position to follow player
@@ -344,7 +344,8 @@ public class GameManager : MonoBehaviour
     {
         float elapsed = 0;
         float x, y;
-        int type = Random.Range(0, presentPrefab.Length);
+        int type = Random.Range(-2, presentPrefab.Length);
+        type = Mathf.Clamp(type, 0, presentPrefab.Length);
         while(true)
         {
             x = Random.Range(MIN_STAGE_X, MAX_STAGE_X) + 0.5f;
